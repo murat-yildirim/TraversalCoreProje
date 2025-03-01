@@ -67,6 +67,11 @@ namespace TraversalCoreProje
 				config.Filters.Add(new AuthorizeFilter(policy));
 			});
 			services.AddMvc();
+
+			services.ConfigureApplicationCookie(options => //LOGÝN OLMADAN GÝDÝLEN SAYFALARDA LOGÝN SAYFASINA YÖNLENDÝRÝLÝYOR
+			{
+				options.LoginPath = "/Login/SignIn/";
+			});
 		}
 
 
@@ -110,13 +115,7 @@ namespace TraversalCoreProje
 				  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
 			});
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllerRoute(
-				  name: "areas",
-				  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-				);
-			});
+		
 
 		}
 	}
