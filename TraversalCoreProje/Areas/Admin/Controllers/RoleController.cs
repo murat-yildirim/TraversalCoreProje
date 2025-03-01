@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -94,9 +95,11 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         }
 
         [Route("AssignRole/{id}")]
+        [HttpGet]
         public async Task<IActionResult> AssignRole(int id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            TempData["Userid"] = user.Id;
             var roles = _roleManager.Roles.ToList();
             var userRoles = await _userManager.GetRolesAsync(user);
             List<RoleAssignViewModel> roleAssignViewModels = new List<RoleAssignViewModel>();
@@ -109,6 +112,25 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
                 roleAssignViewModels.Add(model);
             }
             return View(roleAssignViewModels);
+        }
+        [HttpPost]
+        [Route("AssignRole/{id}")]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userid =(int) TempData["userid"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userid);
+            foreach (var item in model)
+            {
+                if (item.RoleExist)
+                {
+                    await _userManager.AddToRoleAsync(user, item.RoleName);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.RoleName);
+                }
+            }
+            return RedirectToAction("UserList");
         }
     }
 }
