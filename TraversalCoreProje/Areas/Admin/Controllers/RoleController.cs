@@ -1,6 +1,7 @@
 ﻿using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TraversalCoreProje.Areas.Admin.Models;
@@ -12,10 +13,12 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public RoleController(RoleManager<AppRole> roleManager)
+        public RoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [Route("Index")]
@@ -32,23 +35,23 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
             return View();
         }
 
-       
+
         [HttpPost]
         [Route("CreateRole")]
-        public async Task< IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
         {
             AppRole role = new AppRole()
             {
                 Name = createRoleViewModel.RoleName
             };
             var result = await _roleManager.CreateAsync(role);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
             else
-            { 
-            return View();
+            {
+                return View();
             }
         }
 
@@ -64,7 +67,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         [Route("UpdateRole/{id}")] //PARAMETRELİ İŞLEMLERDE BU ŞEKİLDE KULLANILMALI
         public IActionResult UpdateRole(int id)
         {
-            var value = _roleManager.Roles.FirstOrDefault(x => x.Id ==id);
+            var value = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
             UpdateRoleViewModel updateRoleViewModel = new UpdateRoleViewModel
             {
                 RoleID = id,
@@ -75,7 +78,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("UpdateRole/{id}")] //PARAMETRELİ İŞLEMLERDE BU ŞEKİLDE KULLANILMALI
-        public async Task< IActionResult> UpdateRole(UpdateRoleViewModel updateRoleViewModel)
+        public async Task<IActionResult> UpdateRole(UpdateRoleViewModel updateRoleViewModel)
         {
             var value = _roleManager.Roles.FirstOrDefault(x => x.Id == updateRoleViewModel.RoleID);
             value.Name = updateRoleViewModel.RoleName;
@@ -83,5 +86,29 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("UserList")]
+        public IActionResult UserList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+
+        [Route("AssignRole/{id}")]
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            List<RoleAssignViewModel> roleAssignViewModels = new List<RoleAssignViewModel>();
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel model = new RoleAssignViewModel();
+                model.RoleId = item.Id;
+                model.RoleName = item.Name;
+                model.RoleExist = userRoles.Contains(item.Name);
+                roleAssignViewModels.Add(model);
+            }
+            return View(roleAssignViewModels);
+        }
     }
 }
