@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 
@@ -7,7 +8,8 @@ using TraversalCoreProje.Models;
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class MailController : Controller
+    [Authorize(Roles = "Admin,Editor")]
+    public class MailController : Controller
 	{
 		[HttpGet]
 		public IActionResult Index()

@@ -33,6 +33,16 @@ namespace BusinessLayer.Concrete
           return  _reservationDal.GetListWithReservationByWaitAprroval(id);
         }
 
+        public void ChangeStatusApproved(int id)
+        {
+            _reservationDal.ChangeStatusApproved(id);
+        }
+
+        public void ChangeStatusPassivation(int id)
+        {
+            _reservationDal.ChangeStatusPassivation(id);
+        }
+
         public void TAdd(Reservation t)
         {
            _reservationDal.Insert(t);
@@ -50,7 +60,7 @@ namespace BusinessLayer.Concrete
 
         public List<Reservation> TGetList()
         {
-            throw new NotImplementedException();
+            return _reservationDal.GetList();
         }
 
         public void TUpdate(Reservation t)

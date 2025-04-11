@@ -1,10 +1,44 @@
 ﻿<ul class="menu-inner py-1">
+
+
 	<!-- Dashboard -->
 	<li class="menu-item">
-		<a href="index.html" class="menu-link">
+		<a href="/Admin/Dashboard/Index/" class="menu-link">
 			<i class="menu-icon tf-icons bx bx-home-circle"></i>
 			<div data-i18n="Analytics">Dashboard</div>
 		</a>
+	</li>
+
+	<li class="menu-item">
+		<a href="javascript:void(0);" class="menu-link menu-toggle">
+			<i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+			<div data-i18n="Form Layouts">Rezr. İşlemleri</div>
+		</a>
+		<ul class="menu-sub">
+			<li class="menu-item">
+				<a href="/Admin/Reservation/Index/" class="menu-link">
+					<div data-i18n="Form Layouts">Rezervasyonlar
+						<span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">@ViewBag.ActiveReservation</span>
+					</div>
+
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="/Admin/Reservation/ApprovedIndex/" class="menu-link">
+					<div data-i18n="Horizontal Form">Onaylanan</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="/Admin/Reservation/PreviousIndex/" class="menu-link">
+					<div data-i18n="Horizontal Form">Geçmiş Rezervasyonlar</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="/Admin/Reservation/PassivationIndex/" class="menu-link">
+					<div data-i18n="Horizontal Form">İptal Edilenler</div>
+				</a>
+			</li>
+		</ul>
 	</li>
 	<li class="menu-item">
 		<a href="/Admin/Comment/Index/" class="menu-link">
@@ -31,6 +65,15 @@
 		</a>
 	</li>
 	<li class="menu-item">
+		<a href="/Admin/Announcement/Index/" class="menu-link">
+			<i class="menu-icon tf-icons bx bx-message-alt"></i>
+			<div data-i18n="Analytics">
+				Duyuru İşlemleri
+				<span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">@ViewBag.MessageCount</span>
+			</div>
+		</a>
+	</li>
+	<li class="menu-item">
 		<a href="/Admin/Guide/Index/" class="menu-link">
 			<i class="menu-icon tf-icons bx bx-help-circle"></i>
 			<div data-i18n="Analytics">Rehberlerimiz</div>
@@ -44,7 +87,7 @@
 	</li>
 	<li class="menu-item">
 		<a href="/Admin/Mail/Index/" class="menu-link">
-			<i class="menu-icon tf-icons bx-mail-send"></i>
+			<i class="menu-icon tf-icons bx bx-mail-send"></i>
 			<div data-i18n="Analytics">Mail Gönder</div>
 		</a>
 	</li>
@@ -66,12 +109,7 @@
 			<div data-i18n="Analytics">Alt Hakkında</div>
 		</a>
 	</li>
-	<li class="menu-item">
-		<a href="index.html" class="menu-link">
-			<i class="menu-icon tf-icons bx bx-restaurant"></i>
-			<div data-i18n="Analytics">Rezervasyonlar</div>
-		</a>
-	</li>
+
 	<li class="menu-item">
 		<a href="index.html" class="menu-link">
 			<i class="menu-icon tf-icons bx bxl-mailchimp"></i>
@@ -85,19 +123,31 @@
 		</a>
 	</li>
 	<li class="menu-item">
-		<a href="index.html" class="menu-link">
-			<i class="menu-icon tf-icons bx bx-key"></i>
-			<div data-i18n="Analytics">Şifre İşlemleri</div>
+		<a href="/Admin/AdminProfile/Index/" class="menu-link">
+			<i class="bx bx-user me-2"></i>
+			<div data-i18n="Analytics">Profil İşlemleri</div>
 		</a>
 	</li>
 	<li class="menu-item">
-		<a href="/Admin/Role/Index" class="menu-link">
+		<a href="javascript:void(0);" class="menu-link menu-toggle">
 			<i class="menu-icon tf-icons bx bxs-thermometer"></i>
-			<div data-i18n="Analytics">Rol İşlemleri</div>
+			<div data-i18n="Form Layouts">Rol İşlemleri</div>
 		</a>
+		<ul class="menu-sub">
+			<li class="menu-item">
+				<a href="/Admin/Role/Index" class="menu-link">
+					<div data-i18n="Form Layouts">Rol Listesi</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="/Admin/Role/UserList" class="menu-link">
+					<div data-i18n="Horizontal Form">Atanan Kullanıcılar</div>
+				</a>
+			</li>
+		</ul>
 	</li>
 	<li class="menu-item">
-		<a href="index.html" class="menu-link">
+		<a href="/Login/LogOut" class="menu-link">
 			<i class="menu-icon tf-icons bx bx-exit"></i>
 			<div data-i18n="Analytics">Çıkış Yap</div>
 		</a>

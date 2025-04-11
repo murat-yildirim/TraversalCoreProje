@@ -11,21 +11,31 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityFramework
 {
-	public class EfCommentDal : GenericRepository<Comment>, ICommentDal
-	{
-		public List<Comment> GetListCommentWithDestination()
-		{
-			using (var c=new Context())
-			{
-				return c.Comments.Include(x => x.Destination).ToList();
-			}
-		}
+    public class EfCommentDal : GenericRepository<Comment>, ICommentDal
+    {
+        public List<Comment> GetListCommentWithDestination()
+        {
+            using (var c = new Context())
+            {
+                return c.Comments.Include(x => x.Destination).ToList();
+            }
+        }
 
         public List<Comment> GetListCommentWithDestinationAndUser(int id)
         {
             using (var c = new Context())
             {
-                return c.Comments.Where(x=>x.DestinationID==id).Include(x => x.AppUser).ToList();
+                return c.Comments.Where(x => x.DestinationID == id).Include(x => x.AppUser).ToList();
+            }
+        }
+
+        public List<Comment> GetListUserComments(int id)
+        {
+            using (var c = new Context())
+            {
+                return c.Comments.Where(x => x.AppUserID == id)  // Giriş yapan kullanıcının yorumlarını al
+            .Include(x => x.Destination)  // Yorumu yapılan Destination bilgisini getir
+            .ToList();
             }
         }
     }

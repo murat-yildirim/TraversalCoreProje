@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Role")]
+    [Authorize(Roles = "Admin,Editor")]
     public class RoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
@@ -88,10 +90,25 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         }
 
         [Route("UserList")]
-        public IActionResult UserList()
+        public async Task<IActionResult> UserList()
         {
-            var values = _userManager.Users.ToList();
-            return View(values);
+
+            var users = _userManager.Users.ToList();
+            var userRolesViewModel = new List<UserRolesViewModel>();
+
+            foreach (var user in users)
+            {
+                var thisUserRoles = await _userManager.GetRolesAsync(user);
+
+                userRolesViewModel.Add(new UserRolesViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    Roles = thisUserRoles.ToList()
+                });
+            }
+
+            return View(userRolesViewModel);
         }
 
         [Route("AssignRole/{id}")]
@@ -109,6 +126,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
                 model.RoleId = item.Id;
                 model.RoleName = item.Name;
                 model.RoleExist = userRoles.Contains(item.Name);
+                
                 roleAssignViewModels.Add(model);
             }
             return View(roleAssignViewModels);

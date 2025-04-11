@@ -21,12 +21,12 @@
 				@await Html.PartialAsync("/Views/Admin/PartialAppBrandDemo.cshtml")
 
 				<div class="menu-inner-shadow"></div>
-				@await Html.PartialAsync("/Views/Admin/PartialSideBar.cshtml")
+				@await Component.InvokeAsync("_AdminLayoutSidebar")
 
 			</aside>
 			<div class="layout-page">
 
-				@await Html.PartialAsync("/Views/Admin/PartialNavbar.cshtml")
+				@await Component.InvokeAsync("_AdminNavbar")
 
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TraversalCoreProje.Controllers
 {
-    [AllowAnonymous]
+    
     public class DestinationController : Controller
     {
         DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
@@ -19,7 +19,7 @@ namespace TraversalCoreProje.Controllers
         {
             _userManager = userManager;
         }
-
+        [AllowAnonymous]
         public IActionResult Index() // VERİTABANINDAKİ ROTALARI ROTALAR SAYFASINDA LİSTELEMEK İÇİN
         {
             var values = destinationManager.TGetList();
@@ -29,9 +29,16 @@ namespace TraversalCoreProje.Controllers
         [HttpGet]
         public async Task <IActionResult> DestinationDetails(int id) // ROTALAR SAYFASINDA TIKLADIĞI ROTANIN ID'SİNE GÖRE SAYFAYI GETİRMESİ İÇİN
         {
+
+            var value = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (value == null)
+            {
+                return RedirectToAction("SignIn", "Login");
+            }
             ViewBag.i = id;
             ViewBag.destID = id;
-            var value = await _userManager.FindByNameAsync(User.Identity.Name);
+            
             ViewBag.userID = value.Id;
 
             var values = destinationManager.TGetDestinationWithGuide(id);
@@ -41,6 +48,7 @@ namespace TraversalCoreProje.Controllers
         [HttpPost]
         public IActionResult DestinationDetails(Destination p) // GİDİLEN ROTALAR SAYFASINDA BİR İŞLEM YAPMASI İÇİN P PARAMETRESİ TANIMLANDI
         {
+
             return View();
         }
     }

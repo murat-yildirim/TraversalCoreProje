@@ -103,11 +103,12 @@ namespace TraversalCoreProje
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseAuthentication();
-			app.UseRouting();
+           
+            app.UseRouting();
 
-			app.UseAuthorization();
+            app.UseAuthorization();
 
-			var suppertedCultures = new[] { "en", "fr", "es", "gr", "tr", "de" };
+            var suppertedCultures = new[] { "en", "fr", "es", "gr", "tr", "de" };
 			var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suppertedCultures[4]).AddSupportedCultures(suppertedCultures).AddSupportedUICultures(suppertedCultures);
 			app.UseRequestLocalization(localizationOptions);
 
@@ -116,7 +117,7 @@ namespace TraversalCoreProje
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
 
 			app.UseEndpoints(endpoints =>
@@ -125,7 +126,8 @@ namespace TraversalCoreProje
 				  name: "areas",
 				  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
-			});
+
+            });
 		
 
 		}

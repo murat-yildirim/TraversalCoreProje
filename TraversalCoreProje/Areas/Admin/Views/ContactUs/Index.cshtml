@@ -25,8 +25,10 @@
 			<td>@item.Subject</td>
 			<td>@item.MessageDate.ToString("dd.MMM.yyyy")</td>
 			<td><a href="#" class="btn btn-outline-danger">Sil</a></td>
-			<td><a href="#" class="btn btn-outline-dark">Mesajı Aç</a></td>
+			<td><a href="/Admin/ContactUs/OpenIncomingMessage/@item.ContactUsID" class="btn btn-outline-dark">Mesajı Aç</a></td>
 		</tr>
 	}
 </table>
+
+
 

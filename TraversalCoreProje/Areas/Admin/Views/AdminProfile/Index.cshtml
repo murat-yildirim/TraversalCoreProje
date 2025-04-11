@@ -1,0 +1,87 @@
+﻿@model TraversalCoreProje.Areas.Admin.Models.AdminEditViewModel
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Profil Ayarları</h4>
+
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-pills flex-column flex-md-row mb-3">
+				<li class="nav-item">
+					<a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Hesap</a>
+				</li>
+
+			</ul>
+			<div class="card mb-4">
+				<h5 class="card-header">Profil Detayı</h5>
+				<!-- Account -->
+				<div class="card-body">
+					<form method="post" enctype="multipart/form-data">
+
+
+						<div class="d-flex align-items-start align-items-sm-center gap-4">
+							<img src="~/userimages/@Model.imageurl" 
+								 alt="user-avatar"
+								 class="d-block rounded"
+								 height="100"
+								 width="100"
+								 id="uploadedAvatar" />
+							<div class="form-group">
+								<label class="btn btn-primary me-2 mb-4" for="upload">
+									<span class="d-none d-sm-block">Resim Yükle</span>
+								</label>
+								<input type="file" asp-for="Image" class="d-none" id="upload" />
+								<span asp-validation-for="Image" class="text-danger"></span>
+							</div>
+						</div>
+
+						<br /><br />
+
+						<!--enctype dosya kaydetme işlemi için kullanılıyor-->
+						@Html.Label("Adınız")
+						<input type="text" asp-for="name" class="form-control"  />
+						<br />
+						@Html.Label("Soyadınız")
+						<input type="text" asp-for="surname" class="form-control" />
+						<br />
+						@Html.Label("Mail Adresiniz")
+						<input type="text" asp-for="mail" class="form-control" />
+						<br />
+						@Html.Label("Şifreniz")
+						<input type="text" asp-for="password" class="form-control"  required/>
+						<br />
+						@Html.Label("Şifre Tekrar")
+						<input type="text" asp-for="confirmpassword" class="form-control" required />
+						<br />
+						@Html.Label("Telefon Numarası")
+						<input type="text" asp-for="phonenumber" class="form-control" />
+					
+						<br />
+						<button class="btn btn-primary">Bilgileri Güncelle</button>
+					</form>
+				</div>
+
+
+				<!-- /Account -->
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script>
+	document.getElementById('upload').addEventListener('change', function (e) {
+		const file = e.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				document.getElementById('uploadedAvatar').src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+	});
+</script>

@@ -1,0 +1,33 @@
+﻿@using EntityLayer.Concrete
+@model List<Reservation>
+@{
+    ViewData["Title"] = "ApprovedIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Onaylananlar Listesi</h1>
+
+<table class="table table-bordered">
+	<tr>
+
+		<th>Rezervasyon Yapan</th>
+		<th>Tur Bölgesi</th>
+		<th>Tarih</th>
+		<th>Rezervasyon Durumu</th>
+		<th>İşlemler</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+
+		<tr>
+
+			<td>@item.AppUser.Name @item.AppUser.Surname</td>
+			<td>@item.Destination.City</td>
+			<td>@item.ReservastionDate.ToString("dd.MMM.yyyy")</td>
+			<td>@item.Status</td>
+
+			<td><a href="/Admin/Reservation/ReservationDetail/@item.ReservationID" class="btn btn-outline-dark">Rezervasyon Detayı</a></td>
+		</tr>
+	}
+</table>
+

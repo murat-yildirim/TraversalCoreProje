@@ -14,7 +14,8 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
 
 	[Area("Admin")]
-	public class AnnouncementController : Controller
+    [Authorize(Roles = "Admin,Editor")]
+    public class AnnouncementController : Controller
 	{
 		private readonly IAnnouncementService _announcementService;
 		private readonly IMapper _mapper;

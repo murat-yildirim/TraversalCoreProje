@@ -1,0 +1,46 @@
+﻿@using EntityLayer.Concrete
+@model List<Reservation>
+@{
+    ViewData["Title"] = "ReservationDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Rezervasyon Detayı</h1>
+
+@foreach (var item in Model)
+{
+	<form method="post">
+		<div class="form-group">
+			@Html.Label("Ad & Soyad")
+			<input type="text" value="@item.AppUser.Name @item.AppUser.Surname" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Tur Bölgesi")
+			<input type="text" value="@item.Destination.City" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Rezervasyon Tarihi")
+			<input type="date" value="@item.ReservastionDate.ToString("yyyy-MM-dd")" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Kişi Sayısı")
+			<input type="text" value="@item.PersonCount" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Mesaj İçeriği")
+			<textarea rows="5" class="form-control" readonly>@item.Description</textarea>
+		</div>
+	</form>
+	<br />
+	@if(item.Status=="Onay Bekliyor")
+	{
+		<a href="/Admin/Reservation/ChangeStatusApproved/@item.ReservationID" class="btn btn-outline-info">Onayla</a>
+		
+		<a href="/Admin/Reservation/ChangeStatusPassivation/@item.ReservationID" class="btn btn-outline-danger">İptal Et</a>
+	}
+}
+

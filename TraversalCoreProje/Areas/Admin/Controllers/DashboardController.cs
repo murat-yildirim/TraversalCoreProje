@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class DashboardController : Controller
+    [Route("Admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin,Editor")]
+    public class DashboardController : Controller
 	{
 		
 		public IActionResult Index()

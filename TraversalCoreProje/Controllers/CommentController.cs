@@ -20,19 +20,22 @@ namespace TraversalCoreProje.Controllers
         }
 
         [HttpGet]
-        public  PartialViewResult AddComment()
+        public IActionResult AddComment()
         {
+           
             //ViewBag.destID = id;
             //var value = await _userManager.FindByNameAsync(User.Identity.Name);
             //ViewBag.userID = value.Id;
-            return PartialView();
+            return View();
         }
 
         [HttpPost]
         public IActionResult AddComment(Comment p)
         {
+            
             p.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             p.CommentState = true;
+            p.CommentUser = User.Identity.Name;
             commentManager.TAdd(p);
             return RedirectToAction("Index", "Destination");
         }

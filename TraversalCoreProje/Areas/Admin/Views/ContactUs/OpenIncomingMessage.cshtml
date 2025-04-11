@@ -1,0 +1,45 @@
+﻿@using EntityLayer.Concrete
+@model List<ContactUs>
+@{
+	ViewData["Title"] = "OpenIncomingMessage";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Gelen Mesaj Detayı</h1>
+
+@foreach (var item in Model)
+{
+	<form method="get">
+		<div class="form-group">
+			@Html.Label("Ad & Soyad")
+			<input type="text" value="@item.Name" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Mail")
+			<input type="email" value="@item.Mail" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Tarih")
+			<input type="date" value="@item.MessageDate.ToString("yyyy-MM-dd")" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Başlık")
+			<input type="text" value="@item.Subject" class="form-control" readonly />
+		</div>
+		<br />
+		<div class="form-group">
+			@Html.Label("Mesaj İçeriği")
+			<textarea rows="5" class="form-control" readonly>@item.MessageBody</textarea>
+		</div>
+
+	</form>
+
+	
+
+}
+
+
+

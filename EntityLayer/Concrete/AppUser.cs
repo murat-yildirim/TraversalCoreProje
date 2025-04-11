@@ -9,6 +9,7 @@ namespace EntityLayer.Concrete
 {
     public class AppUser : IdentityUser<int> //IDENTİTY'DEN MİRAS ALIYORUZ ANAHTAR DEĞER İNT OLACAK
     {
+       
         public string ImageUrl { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

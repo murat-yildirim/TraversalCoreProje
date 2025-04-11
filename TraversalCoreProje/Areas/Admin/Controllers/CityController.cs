@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ using TraversalCoreProje.Models;
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class CityController : Controller
+    [Authorize(Roles = "Admin,Editor")]
+    public class CityController : Controller
 	{
 		private readonly IDestinationService _destinationService;
 		public CityController(IDestinationService destinationService)

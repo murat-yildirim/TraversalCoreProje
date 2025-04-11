@@ -11,8 +11,8 @@ using TraversalCoreProje.Areas.Admin.Models;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
-	[AllowAnonymous]
-	[Area("Admin")]
+    [Authorize(Roles = "Admin,Editor")]
+    [Area("Admin")]
 	public class VisitorApiController : Controller
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
